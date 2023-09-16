@@ -34,8 +34,39 @@ for col in cols_to_convert:
     emotion_lexicon[col] = emotion_lexicon[col].apply(lambda x: 1 if x != 0 else 0)
 
 # Streamlit UI
-st.title("Emotion Analyzer")
+st.title("Text Emotion Analyzer")
+st.markdown(
+    """
+    <style>
+        .guide {
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+    <div class="guide">
 
+    ### How The Emotion Analyzer Works
+
+    This Emotion Analyzer is designed to process textual input and identify the most dominant emotion exhibited in the text. Below is an overview of how the algorithm and code work:
+
+    1. **Import Required Libraries**: Libraries such as Pandas, NLTK, and Matplotlib are imported for data manipulation, text processing, and plotting.
+
+    2. **Load Emotional Lexicon**: The lexicon (usually in a CSV file) containing words associated with different emotions is loaded. This lexicon is the main source for the emotion analysis. 
+
+        - **Source of Emotion Lexicon Dataset**: The lexicon usually comes from a reputable source, such as the NRC Emotion Lexicon or other academic publications that have tabulated words against various emotions.
+
+    3. **Text Input**: The application accepts text input from the user either directly through a text box or by uploading a text file.
+
+    4. **Tokenization**: The input text is tokenized into individual words.
+
+    5. **Emotion Count**: Each tokenized word is checked against the emotional lexicon to identify and count the associated emotions.
+
+    6. **Determine Dominant Emotion**: The emotion with the highest count is determined to be the dominant emotion of the text.
+
+    7. **Visualization**: A bar graph is plotted to show the frequency of each emotion in the text, and a word cloud is generated to visualize the most frequently occurring words.
+
+    </div>
+    """, 
+    unsafe_allow_html=True)
 # Text input
 text_input = st.text_area("Enter your text here:")
 
@@ -73,38 +104,7 @@ if text_input:
                     if emotion_lexicon.loc[emotion_lexicon['Word'] == word, emotion].values[0] > 0:
                         if emotion == dominant_emotion:
                             dominant_emotion_words.append(word)
-    st.markdown(
-    """
-    <style>
-        .guide {
-            font-family: 'Times New Roman', Times, serif;
-        }
-    </style>
-    <div class="guide">
-
-    ### How The Emotion Analyzer Works
-
-    This Emotion Analyzer is designed to process textual input and identify the most dominant emotion exhibited in the text. Below is an overview of how the algorithm and code work:
-
-    1. **Import Required Libraries**: Libraries such as Pandas, NLTK, and Matplotlib are imported for data manipulation, text processing, and plotting.
-
-    2. **Load Emotional Lexicon**: The lexicon (usually in a CSV file) containing words associated with different emotions is loaded. This lexicon is the main source for the emotion analysis. 
-
-        - **Source of Emotion Lexicon Dataset**: The lexicon usually comes from a reputable source, such as the NRC Emotion Lexicon or other academic publications that have tabulated words against various emotions.
-
-    3. **Text Input**: The application accepts text input from the user either directly through a text box or by uploading a text file.
-
-    4. **Tokenization**: The input text is tokenized into individual words.
-
-    5. **Emotion Count**: Each tokenized word is checked against the emotional lexicon to identify and count the associated emotions.
-
-    6. **Determine Dominant Emotion**: The emotion with the highest count is determined to be the dominant emotion of the text.
-
-    7. **Visualization**: A bar graph is plotted to show the frequency of each emotion in the text, and a word cloud is generated to visualize the most frequently occurring words.
-
-    </div>
-    """, 
-    unsafe_allow_html=True)
+    
     st.markdown(
     """
     <style>
